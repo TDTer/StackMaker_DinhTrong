@@ -23,11 +23,13 @@ public class PlayerController : MonoBehaviour
 
     public Direction direction;
     public float speed = 10.0f;
-    public bool isMoving = false;
+    public bool isMoving;
+    public bool isFinish;
     public GameObject brickPrefab;
 
     private int countBrick;
     private float brickHeight;
+    private float chestWidth;
     private GameObject[] listOfBricks;
 
 
@@ -39,6 +41,8 @@ public class PlayerController : MonoBehaviour
         countBrick = 0;
         brickHeight = brickPrefab.GetComponent<MeshRenderer>().bounds.size.y;
         listOfBricks = new GameObject[100];
+        isMoving = false;
+        isFinish = false;
     }
 
     // Update is called once per frame
@@ -50,6 +54,7 @@ public class PlayerController : MonoBehaviour
             nextPos = NextPosition(direction);
             isMoving = true;
         }
+
         Move(direction, nextPos);
         if (Vector3.Distance(transform.position, nextPos) < 0.1f)
         {
@@ -57,6 +62,19 @@ public class PlayerController : MonoBehaviour
             direction = Direction.None;
         }
 
+
+        // if (Physics.Raycast(nextPos + dir * unit, Vector3.down, out hit, 5f) && !isMoving)
+        // {
+        //     if (hit.transform.CompareTag("Finish"))
+        //     {
+        //         GameObject finishObject = hit.transform.gameObject;
+
+        //         Vector3 finishPos = finishObject.transform.Find("baoxiang_close").transform.position;
+        //         // transform.position = Vector3.MoveTowards(transform.position, finishPos, speed * Time.deltaTime);
+        //         Move(direction, finishPos);
+        //         isMoving = true;
+        //     }
+        // }
     }
 
 
@@ -122,22 +140,34 @@ public class PlayerController : MonoBehaviour
         }
 
         Vector3 nextPos = transform.position;
-        Debug.DrawRay(nextPos + dir * unit, Vector3.down * 5, Color.red);
+
+
         while (Physics.Raycast(nextPos + dir * unit, Vector3.down, out hit, 5f))
         {
             if (hit.transform.CompareTag("Brick") || hit.transform.CompareTag("UnBrick"))
             {
+                //Debug.Log(hit.transform.tag);
                 nextPos = nextPos + dir * unit;
             }
             else break;
         }
-        // Debug.Log(nextPos);
+        //Debug.DrawRay(nextPos + new Vector3(0, 3, 0), Vector3.down * 5, Color.red);
+        // )
+        if (Physics.Raycast(nextPos + dir * unit, Vector3.down, out hit, 5f) && hit.transform.CompareTag("Destination"))
+        {
+            isFinish = true;
+            GameObject finishObject = hit.transform.gameObject;
+            GameObject chestObject = finishObject.transform.Find("baoxiang_close").gameObject;
+
+            chestWidth = chestObject.GetComponent<Collider>().bounds.size.z;
+            Vector3 finishPos = chestObject.transform.position - new Vector3(0, 0, chestWidth / 2);
+            nextPos = finishPos;
+        }
         return nextPos;
     }
 
     void OnTriggerEnter(Collider collisionInfo)
     {
-
         if (collisionInfo.gameObject.CompareTag("Brick"))
         {
             if (collisionInfo.gameObject.GetComponent<Renderer>().enabled)
@@ -146,8 +176,13 @@ public class PlayerController : MonoBehaviour
                 AddBrick(collisionInfo.gameObject);
             }
         }
-    }
 
+        if (collisionInfo.gameObject.name == "zhongdian")
+        {
+            //Debug.Log("Clear Brick");
+            ClearBrick();
+        }
+    }
     void OnTriggerExit(Collider collisionInfo)
     {
         if (collisionInfo.gameObject.CompareTag("UnBrick"))
@@ -178,5 +213,15 @@ public class PlayerController : MonoBehaviour
         Destroy(listOfBricks[countBrick]);
         GameObject child = transform.Find("jiao").gameObject;
         if (countBrick > 1) child.transform.position = new Vector3(child.transform.position.x, child.transform.position.y - brickHeight, child.transform.position.z);
+    }
+
+    void ClearBrick()
+    {
+        GameObject child = transform.Find("jiao").gameObject;
+        for (int i = 0; i < countBrick; i++)
+        {
+            Destroy(listOfBricks[i]);
+            if (i > 0) child.transform.position = new Vector3(child.transform.position.x, child.transform.position.y - brickHeight, child.transform.position.z);
+        }
     }
 }

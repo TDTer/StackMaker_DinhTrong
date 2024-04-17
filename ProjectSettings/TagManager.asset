@@ -8,6 +8,7 @@ TagManager:
   - Brick
   - Push
   - Teleport
+  - Destination
   layers:
   - Default
   - TransparentFX
