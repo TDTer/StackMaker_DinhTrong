@@ -21,6 +21,8 @@ public class ChestOpen : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             OpenChest();
+            UIManager.Instance.CloseAll();
+            UIManager.Instance.OpenUI<CanvasVictory>();
         }
     }
 

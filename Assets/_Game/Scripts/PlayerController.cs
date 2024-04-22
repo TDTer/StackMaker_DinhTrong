@@ -61,20 +61,6 @@ public class PlayerController : MonoBehaviour
             isMoving = false;
             direction = Direction.None;
         }
-
-
-        // if (Physics.Raycast(nextPos + dir * unit, Vector3.down, out hit, 5f) && !isMoving)
-        // {
-        //     if (hit.transform.CompareTag("Finish"))
-        //     {
-        //         GameObject finishObject = hit.transform.gameObject;
-
-        //         Vector3 finishPos = finishObject.transform.Find("baoxiang_close").transform.position;
-        //         // transform.position = Vector3.MoveTowards(transform.position, finishPos, speed * Time.deltaTime);
-        //         Move(direction, finishPos);
-        //         isMoving = true;
-        //     }
-        // }
     }
 
 
