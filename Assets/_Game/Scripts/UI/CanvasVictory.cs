@@ -1,18 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CanvasVictory : UICanvas
 {
     public void RetryButton()
     {
         Close(0);
-        UIManager.Instance.OpenUI<CanvasGamePlay>();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void NextButton()
     {
         Close(0);
-        UIManager.Instance.OpenUI<CanvasGamePlay>();
+        LevelManager.currentLevel++;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

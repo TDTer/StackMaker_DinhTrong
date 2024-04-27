@@ -388,7 +388,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1430587869222086521}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8676262046634344933}
+        m_TargetAssemblyTypeName: CanvasVictory, Assembly-CSharp
+        m_MethodName: RetryButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4692762092603021431
 GameObject:
   m_ObjectHideFlags: 0
@@ -587,7 +599,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7523358520339462064}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8676262046634344933}
+        m_TargetAssemblyTypeName: CanvasVictory, Assembly-CSharp
+        m_MethodName: NextButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8054308373112785060
 GameObject:
   m_ObjectHideFlags: 0
