@@ -14,5 +14,5 @@
  </table>
 
 
- [Demo Video](https://www.youtube.com/shorts/iWKZawT7iTk?feature=share)
+https://github.com/TDTer/StackMaker_DinhTrong/assets/80698862/08de80d4-81c6-4d12-83b2-809279231bd3
 
